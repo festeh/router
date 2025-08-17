@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'config/button_config.dart';
 
 void main() {
   runApp(const WearOSApp());
@@ -26,6 +27,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double screenSize = 320.0;
+    final buttons = AppConfig.getButtons();
     
     return Scaffold(
       backgroundColor: Colors.black,
@@ -43,12 +45,9 @@ class MainScreen extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 15,
               crossAxisSpacing: 15,
-              children: [
-                _buildButton(context, 'X', Colors.red, const XScreen()),
-                _buildButton(context, 'Y', Colors.green, const YScreen()),
-                _buildButton(context, 'Z', Colors.blue, const ZScreen()),
-                _buildButton(context, 'F', Colors.orange, const FScreen()),
-              ],
+              children: buttons.map((config) => 
+                _buildButton(context, config)
+              ).toList(),
             ),
           ),
         ),
@@ -56,21 +55,23 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, String label, Color color, Widget screen) {
+  Widget _buildButton(BuildContext context, ButtonConfig config) {
     return Material(
-      color: color,
+      color: config.color,
       borderRadius: BorderRadius.circular(15),
       child: InkWell(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => screen),
+            MaterialPageRoute(
+              builder: (context) => ButtonScreen(config: config),
+            ),
           );
         },
         borderRadius: BorderRadius.circular(15),
         child: Center(
           child: Text(
-            label,
+            config.label,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -83,82 +84,53 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class XScreen extends StatelessWidget {
-  const XScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildScreen(context, 'X Screen', Colors.red);
-  }
-}
-
-class YScreen extends StatelessWidget {
-  const YScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildScreen(context, 'Y Screen', Colors.green);
-  }
-}
-
-class ZScreen extends StatelessWidget {
-  const ZScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildScreen(context, 'Z Screen', Colors.blue);
-  }
-}
-
-class FScreen extends StatelessWidget {
-  const FScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildScreen(context, 'F Screen', Colors.orange);
-  }
-}
-
-Widget _buildScreen(BuildContext context, String title, Color color) {
-  const double screenSize = 320.0;
+class ButtonScreen extends StatelessWidget {
+  final ButtonConfig config;
   
-  return Scaffold(
-    backgroundColor: Colors.black,
-    body: Center(
-      child: Container(
-        width: screenSize,
-        height: screenSize,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.grey[900],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: color,
+  const ButtonScreen({super.key, required this.config});
+
+  @override
+  Widget build(BuildContext context) {
+    const double screenSize = 320.0;
+    
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Container(
+          width: screenSize,
+          height: screenSize,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.grey[900],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                config.screenTitle,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: config.color,
+                ),
               ),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back),
-              label: const Text('Back'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[800],
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              const SizedBox(height: 40),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back),
+                label: const Text('Back'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[800],
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

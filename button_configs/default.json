@@ -1,0 +1,22 @@
+[
+  {
+    "label": "A",
+    "color": "0xFFE91E63",
+    "title": "Alpha Screen"
+  },
+  {
+    "label": "B",
+    "color": "0xFF9C27B0",
+    "title": "Beta Screen"
+  },
+  {
+    "label": "C",
+    "color": "0xFF673AB7",
+    "title": "Charlie Screen"
+  },
+  {
+    "label": "D",
+    "color": "0xFF3F51B5",
+    "title": "Delta Screen"
+  }
+]
