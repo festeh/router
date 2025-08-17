@@ -1,0 +1,25 @@
+[
+  {
+    "label": "API",
+    "color": "0xFF4CAF50",
+    "title": "API Test",
+    "url": "https://jsonplaceholder.typicode.com/posts/1"
+  },
+  {
+    "label": "Time",
+    "color": "0xFF2196F3",
+    "title": "World Time",
+    "url": "https://worldtimeapi.org/api/timezone/Europe/London"
+  },
+  {
+    "label": "Info",
+    "color": "0xFFFF9800",
+    "title": "Info Screen"
+  },
+  {
+    "label": "Quote",
+    "color": "0xFF9C27B0",
+    "title": "Random Quote",
+    "url": "https://api.quotable.io/random"
+  }
+]
