@@ -6,14 +6,20 @@ import 'button_screen.dart';
 
 class ButtonGrid extends StatelessWidget {
   final List<ButtonConfig> buttons;
+  final bool forceGrid2x2;
 
   const ButtonGrid({
     super.key,
     required this.buttons,
+    this.forceGrid2x2 = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (forceGrid2x2) {
+      return _build2x2Grid(context);
+    }
+    
     final int gridSize = _calculateGridSize(buttons.length);
     
     return GridView.builder(
@@ -31,6 +37,26 @@ class ButtonGrid extends StatelessWidget {
     );
   }
 
+  Widget _build2x2Grid(BuildContext context) {
+    final List<Widget> buttonWidgets = [];
+    
+    for (int i = 0; i < 4; i++) {
+      if (i < buttons.length) {
+        buttonWidgets.add(_buildButton(context, buttons[i]));
+      } else {
+        buttonWidgets.add(Container());
+      }
+    }
+
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      mainAxisSpacing: 15,
+      crossAxisSpacing: 15,
+      children: buttonWidgets,
+    );
+  }
+
   int _calculateGridSize(int buttonCount) {
     if (buttonCount <= 4) return 2;
     if (buttonCount <= 9) return 3;
@@ -41,7 +67,7 @@ class ButtonGrid extends StatelessWidget {
   Widget _buildButton(BuildContext context, ButtonConfig config) {
     return Material(
       color: config.color,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -51,10 +77,10 @@ class ButtonGrid extends StatelessWidget {
             ),
           );
         },
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             border: Border.all(
               color: Colors.white24,
               width: 2,
