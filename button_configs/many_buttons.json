@@ -1,0 +1,52 @@
+[
+  {
+    "label": "1",
+    "color": "0xFFE91E63",
+    "title": "Screen 1"
+  },
+  {
+    "label": "2",
+    "color": "0xFF9C27B0",
+    "title": "Screen 2"
+  },
+  {
+    "label": "3",
+    "color": "0xFF673AB7",
+    "title": "Screen 3"
+  },
+  {
+    "label": "4",
+    "color": "0xFF3F51B5",
+    "title": "Screen 4"
+  },
+  {
+    "label": "5",
+    "color": "0xFF2196F3",
+    "title": "Screen 5"
+  },
+  {
+    "label": "6",
+    "color": "0xFF03A9F4",
+    "title": "Screen 6"
+  },
+  {
+    "label": "7",
+    "color": "0xFF00BCD4",
+    "title": "Screen 7"
+  },
+  {
+    "label": "8",
+    "color": "0xFF009688",
+    "title": "Screen 8"
+  },
+  {
+    "label": "9",
+    "color": "0xFF4CAF50",
+    "title": "Screen 9"
+  },
+  {
+    "label": "10",
+    "color": "0xFF8BC34A",
+    "title": "Screen 10"
+  }
+]
