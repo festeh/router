@@ -1,0 +1,38 @@
+[
+  {
+    "label": "Home",
+    "color": "0xFF4CAF50",
+    "title": "Home Screen",
+    "icon": "assets/icons/home.svg"
+  },
+  {
+    "label": "User",
+    "color": "0xFF2196F3",
+    "title": "User Profile",
+    "icon": "assets/icons/user.svg"
+  },
+  {
+    "label": "Settings",
+    "color": "0xFF9C27B0",
+    "title": "Settings",
+    "icon": "assets/icons/settings.svg"
+  },
+  {
+    "label": "Stats",
+    "color": "0xFFFF9800",
+    "title": "Statistics",
+    "icon": "assets/icons/chart.svg"
+  },
+  {
+    "label": "Alerts",
+    "color": "0xFFF44336",
+    "title": "Notifications",
+    "icon": "assets/icons/bell.svg"
+  },
+  {
+    "label": "Mail",
+    "color": "0xFF00BCD4",
+    "title": "Messages",
+    "icon": "assets/icons/mail.svg"
+  }
+]

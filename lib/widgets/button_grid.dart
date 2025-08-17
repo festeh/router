@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 import '../models/button_config.dart';
 import 'button_screen.dart';
@@ -60,14 +61,24 @@ class ButtonGrid extends StatelessWidget {
             ),
           ),
           child: Center(
-            child: Text(
-              config.label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: config.icon != null
+                ? SvgPicture.asset(
+                    config.icon!,
+                    width: 48,
+                    height: 48,
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  )
+                : Text(
+                    config.label,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ),
       ),

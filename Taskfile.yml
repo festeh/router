@@ -71,3 +71,10 @@ tasks:
       - task: build-linux
         vars:
           CONFIG_FILE: button_configs/with_urls.json
+
+  run-icons:
+    desc: Run with icons configuration
+    cmds:
+      - task: build-linux
+        vars:
+          CONFIG_FILE: button_configs/with_icons.json

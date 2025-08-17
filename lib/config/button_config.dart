@@ -1,19 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
-class ButtonConfig {
-  final String label;
-  final Color color;
-  final String screenTitle;
-  final String? url;
-
-  const ButtonConfig({
-    required this.label,
-    required this.color,
-    required this.screenTitle,
-    this.url,
-  });
-}
+import '../models/button_config.dart';
 
 class AppConfig {
   static const String buttonsJson = String.fromEnvironment(
@@ -23,10 +10,10 @@ class AppConfig {
 
   static List<ButtonConfig> getButtons() {
     final List<Map<String, String?>> defaultButtons = [
-      {'label': 'X', 'color': '0xFFFF0000', 'title': 'X Screen', 'url': null},
-      {'label': 'Y', 'color': '0xFF4CAF50', 'title': 'Y Screen', 'url': null},
-      {'label': 'Z', 'color': '0xFF2196F3', 'title': 'Z Screen', 'url': null},
-      {'label': 'F', 'color': '0xFFFF9800', 'title': 'F Screen', 'url': null},
+      {'label': 'X', 'color': '0xFFFF0000', 'title': 'X Screen', 'url': null, 'icon': null},
+      {'label': 'Y', 'color': '0xFF4CAF50', 'title': 'Y Screen', 'url': null, 'icon': null},
+      {'label': 'Z', 'color': '0xFF2196F3', 'title': 'Z Screen', 'url': null, 'icon': null},
+      {'label': 'F', 'color': '0xFFFF9800', 'title': 'F Screen', 'url': null, 'icon': null},
     ];
     
     try {
@@ -42,6 +29,7 @@ class AppConfig {
       color: Color(int.parse(button['color']!)),
       screenTitle: button['title']!,
       url: button['url'],
+      icon: button['icon'],
     )).toList();
   }
 
@@ -57,6 +45,7 @@ class AppConfig {
             color: Color(int.parse(item['color'] as String)),
             screenTitle: item['title'] as String,
             url: item['url'] as String?,
+            icon: item['icon'] as String?,
           ));
         }
       }

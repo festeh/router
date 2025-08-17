@@ -5,12 +5,14 @@ class ButtonConfig {
   final Color color;
   final String screenTitle;
   final String? url;
+  final String? icon;
 
   const ButtonConfig({
     required this.label,
     required this.color,
     required this.screenTitle,
     this.url,
+    this.icon,
   });
 
   factory ButtonConfig.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class ButtonConfig {
       color: Color(int.parse(json['color'] as String)),
       screenTitle: json['title'] as String,
       url: json['url'] as String?,
+      icon: json['icon'] as String?,
     );
   }
 }
