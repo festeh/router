@@ -1,0 +1,73 @@
+version: '3'
+
+vars:
+  CONFIG_FILE: '{{.CONFIG_FILE | default "button_configs/default.json"}}'
+  PLATFORM: '{{.PLATFORM | default "linux"}}'
+
+tasks:
+  build:
+    desc: Build Flutter app with button configuration injection
+    cmds:
+      - task: build-{{.PLATFORM}}
+    preconditions:
+      - sh: test -f {{.CONFIG_FILE}}
+        msg: "Error: Configuration file '{{.CONFIG_FILE}}' not found!"
+
+  build-linux:
+    desc: Run Flutter app on Linux with configuration
+    vars:
+      CONFIG_JSON:
+        sh: cat {{.CONFIG_FILE}} | jq -c . | sed 's/"/\\"/g'
+    cmds:
+      - echo "Building with configuration from {{.CONFIG_FILE}}"
+      - echo "Target platform linux"
+      - flutter run -d linux --dart-define="BUTTONS_CONFIG={{.CONFIG_JSON}}"
+
+  build-apk:
+    desc: Build APK with configuration
+    vars:
+      CONFIG_JSON:
+        sh: cat {{.CONFIG_FILE}} | jq -c . | sed 's/"/\\"/g'
+    cmds:
+      - echo "Building with configuration from {{.CONFIG_FILE}}"
+      - echo "Target platform apk"
+      - flutter build apk --dart-define="BUTTONS_CONFIG={{.CONFIG_JSON}}"
+
+  build-appbundle:
+    desc: Build App Bundle with configuration
+    vars:
+      CONFIG_JSON:
+        sh: cat {{.CONFIG_FILE}} | jq -c . | sed 's/"/\\"/g'
+    cmds:
+      - echo "Building with configuration from {{.CONFIG_FILE}}"
+      - echo "Target platform appbundle"
+      - flutter build appbundle --dart-define="BUTTONS_CONFIG={{.CONFIG_JSON}}"
+
+  run:
+    desc: Run app with specific configuration (alias for build with linux platform)
+    cmds:
+      - task: build
+        vars:
+          PLATFORM: linux
+          CONFIG_FILE: '{{.CONFIG_FILE}}'
+
+  run-default:
+    desc: Run with default configuration
+    cmds:
+      - task: build-linux
+        vars:
+          CONFIG_FILE: button_configs/default.json
+
+  run-many:
+    desc: Run with many buttons configuration
+    cmds:
+      - task: build-linux
+        vars:
+          CONFIG_FILE: button_configs/many_buttons.json
+
+  run-urls:
+    desc: Run with URLs configuration
+    cmds:
+      - task: build-linux
+        vars:
+          CONFIG_FILE: button_configs/with_urls.json
