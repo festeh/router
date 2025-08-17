@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 import '../models/button_config.dart';
 import 'button_screen.dart';
+import 'custom_page_route.dart';
 
 class ButtonGrid extends StatelessWidget {
   final List<ButtonConfig> buttons;
@@ -65,46 +66,54 @@ class ButtonGrid extends StatelessWidget {
   }
 
   Widget _buildButton(BuildContext context, ButtonConfig config) {
-    return Material(
-      color: config.color,
-      borderRadius: BorderRadius.circular(15),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ButtonScreen(config: config),
-            ),
-          );
-        },
+    return Hero(
+      tag: 'button-${config.label}-${config.screenTitle}',
+      child: Material(
+        color: config.color,
         borderRadius: BorderRadius.circular(15),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              color: Colors.white24,
-              width: 2,
+        child: InkWell(
+          onTap: () {
+            // Add a small delay to let the ink ripple complete
+            Future.delayed(const Duration(milliseconds: 100), () {
+              Navigator.push(
+                context,
+                CircularRevealRoute(
+                  child: ButtonScreen(config: config),
+                ),
+              );
+            });
+          },
+          borderRadius: BorderRadius.circular(15),
+          splashColor: Colors.white24,
+          highlightColor: Colors.white12,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Colors.white24,
+                width: 2,
+              ),
             ),
-          ),
-          child: Center(
-            child: config.icon != null
-                ? SvgPicture.asset(
-                    config.icon!,
-                    width: 48,
-                    height: 48,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
+            child: Center(
+              child: config.icon != null
+                  ? SvgPicture.asset(
+                      config.icon!,
+                      width: 48,
+                      height: 48,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.white,
+                        BlendMode.srcIn,
+                      ),
+                    )
+                  : Text(
+                      config.label,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )
-                : Text(
-                    config.label,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            ),
           ),
         ),
       ),
